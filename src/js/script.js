@@ -8,7 +8,15 @@
     containerOf: {
       booksList: '.books-list',
     },
+    book: {
+      image: '.books-list .book__image',
+    }
   };
+  const classNames = {
+    favorite: 'favorite',
+  };
+  const favoriteBooks = [];
+
   const templates = {
     books: Handlebars.compile(document.querySelector(select.templateOf.book).innerHTML),
   };
@@ -26,5 +34,26 @@
       menuContainer.appendChild(generatedDOM);
     }
   }
+
+  function initActions() {
+
+    const books = document.querySelectorAll(select.book.image);
+
+    for (let book of books) {
+      /* add event listner */
+      book.addEventListener('dblclick', function (event) {
+        /* prevent default actions */
+        event.preventDefault();
+        /* add class favorite*/
+        book.classList.add(classNames.favorite);
+        /* get books id */
+        const bookID = book.getAttribute('data-id');
+        /* add element to array*/
+        favoriteBooks.push(bookID);
+      });
+    }
+  }
   render();
+  initActions();
+
 }
