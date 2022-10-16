@@ -1,7 +1,15 @@
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 {
   'use strict';
+
+
+
   const select = {
+    dataSource: {
+      data: dataSource.books,
+      detailsAdults: 'adults',
+      nonFiction: 'nonFiction',
+    },
     templateOf: {
       book: '#template-book',
     },
@@ -22,7 +30,7 @@
     books: Handlebars.compile(document.querySelector(select.templateOf.book).innerHTML),
   };
 
-
+  const books = document.querySelectorAll(select.book.image);
   function render() {
     for (let book of dataSource.books) {
       /* generate HTML based on template */
@@ -38,7 +46,6 @@
 
   function initActions() {
 
-    const books = document.querySelectorAll(select.book.image);
 
 
     for (let book of books) {
@@ -48,7 +55,7 @@
           /* prevent default actions */
           event.preventDefault();
           /* add class favorite*/
-          //  book.classList.dd(classNames.favorite);
+          //  book.classList.add(classNames.favorite);
           /* get books id */
           const bookID = book.getAttribute('data-id');
           /* add element to array*/
@@ -79,9 +86,30 @@
         }
         console.log('filters', filters);
       }
+      filterBooks();
     });
+  }
 
+  function filterBooks() {
 
+    for (let dataBook of dataSource.books) {
+      let shouldBeHidden = false;
+
+      for (const filter of filters) {
+        if (!dataBook.details[filter]) {
+          shouldBeHidden = true;
+          break;
+        }
+      }
+      if (shouldBeHidden == true) {
+        const bookImage = document.querySelector('.book__image[data-id="' + dataBook.id + '"]');
+        bookImage.classList.add('hidden');
+      } else if (shouldBeHidden == false) {
+        const bookImage = document.querySelector('.book__image[data-id="' + dataBook.id + '"]');
+        bookImage.classList.remove('hidden');
+      }
+
+    }
   }
   render();
   initActions();
