@@ -39,31 +39,34 @@
 
     const books = document.querySelectorAll(select.book.image);
 
+
     for (let book of books) {
       /* add event listner */
       book.addEventListener('dblclick', function (event) {
-        /* prevent default actions */
-        event.preventDefault();
-        /* add class favorite*/
-        book.classList.add(classNames.favorite);
-        /* get books id */
-        const bookID = book.getAttribute('data-id');
-        /* add element to array*/
-        // favoriteBooks.push(bookID);
-        if (!favoriteBooks.includes(bookID)) {
-          book.classList.add(classNames.favorite);
-          favoriteBooks.push(bookID);
+        if (event.target.offsetParent.classList.contains('.book__image')) {
+          /* prevent default actions */
+          event.preventDefault();
+          /* add class favorite*/
+          //  book.classList.dd(classNames.favorite);
+          /* get books id */
+          const bookID = book.getAttribute('data-id');
+          /* add element to array*/
+          // favoriteBooks.push(bookID);
+          if (!favoriteBooks.includes(bookID)) {
+            book.classList.add(classNames.favorite);
+            favoriteBooks.push(bookID);
 
-        } else {
-          book.classList.remove(classNames.favorite);
-          const index = favoriteBooks.indexOf(bookID);
-          favoriteBooks.splice(index, 1);
+          } else {
+            book.classList.remove(classNames.favorite);
+            const index = favoriteBooks.indexOf(bookID);
+            favoriteBooks.splice(index, 1);
+          }
 
         }
-
       });
     }
   }
+
   render();
   initActions();
 
