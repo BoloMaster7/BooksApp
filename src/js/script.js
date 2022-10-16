@@ -49,7 +49,18 @@
         /* get books id */
         const bookID = book.getAttribute('data-id');
         /* add element to array*/
-        favoriteBooks.push(bookID);
+        // favoriteBooks.push(bookID);
+        if (!favoriteBooks.includes(bookID)) {
+          book.classList.add(classNames.favorite);
+          favoriteBooks.push(bookID);
+
+        } else {
+          book.classList.remove(classNames.favorite);
+          const index = favoriteBooks.indexOf(bookID);
+          favoriteBooks.splice(index, 1);
+
+        }
+
       });
     }
   }
