@@ -49,7 +49,7 @@
 
 
       for (let book of this.data) {
-        const ratingBgc = determineRatingBgc(book.rating);
+        const ratingBgc = this.determineRatingBgc(book.rating);
         const ratingWidth = ratingBgc * 10;
         book.ratingBgc = ratingBgc;
         book.ratingWidth = ratingWidth;
@@ -156,7 +156,7 @@
 
   }
 
-  const app = new BooksList();
+  new BooksList();
 }
 
 
